@@ -77,6 +77,7 @@ const switchTab = (id) => {
     displayCart();
   }
 };
+// কনসোল।লগ()
 
 const showBooks = (books) => {
   const bookContainer = document.getElementById("container");
@@ -92,22 +93,22 @@ const createCard = (book) => {
   div.classList.add("card");
 
   let overview = book.overview;
-
+  const shortOverview = overview.substring(0, 60);
   div.innerHTML = `
   <div class="image-container">
     <img
-      src="${book.Image}"
+      src="${book.image}"
       alt=""
     />
     <div class="button-container">
       <button onclick="addToWishlist('${book.id}')" class="button"><i class="fa-solid fa-heart"></i></button>
-      <button onclick="AddToCart" class="button">Add To Cart</button>
+      <button onclick="addToCart('${book.id}')" class="button">Add To Cart</button>
     </div>
   </div>
   <div class="info-container">
     <h1>${book.name}</h1>
     <p>
-      ${overview}
+      ${shortOverview}...
     </p>
   </div>
 
@@ -141,9 +142,10 @@ const displayCart = () => {
 const displayWishlist = () => {
   const wishlist = getWishlistItems();
   console.log(wishlist);
-
-  bookList.forEach((book) => {
+  const wishlistContainer = document.getElementById("wishlist");
+  wishlistContainer.innerHTML = "";
+  wishlist.forEach((book) => {
     const div = createCard(book);
-    document.getElementById("wishlist").appendChild(div);
+    wishlistContainer.appendChild(div);
   });
 };
